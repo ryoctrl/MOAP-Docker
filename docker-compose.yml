@@ -10,12 +10,15 @@ services:
       - .env
     restart: always
   backend:
-    build: ./backend
-    command: node /
+    build: ./build/backend
+    command: npm start
     env_file:
       - .env
     depends_on:
       - db
     restart: always
+    volumes:
+      - ./Backend:/MOAP-Backend
+    working_dir: /MOAP-Backend
     ports:
       - '9250:9250'
