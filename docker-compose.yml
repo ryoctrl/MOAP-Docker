@@ -1,21 +1,21 @@
 version: '3.7'
 services:
-	db:
-		image: mariadb
-		ports:
-			- '3306:3306'	
-		volumes:
-			- ./moap-db:/var/lib/mysql
-		env_file:
-			- .env
-		restart: always
-	backend:
-		build: ./backend
-		command: node /
-		env_file:
-			- .env
-		depends_on:
-			- db
-		restart: always
-		ports:
-			- '9250:9250'
+  db:
+    image: mariadb
+    ports:
+      - '3306:3306'  
+    volumes:
+      - ./moap-db:/var/lib/mysql
+    env_file:
+      - .env
+    restart: always
+  backend:
+    build: ./backend
+    command: node /
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - '9250:9250'

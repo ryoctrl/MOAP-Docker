@@ -2,8 +2,7 @@ FROM node:10.16
 
 USER root
 
-ADD dummyfile /data/
-RUN git clone --depth 1 https://git.mosin.jp/git/mosin/MOAP-Backend
+RUN git clone https://git.mosin.jp/git/mosin/MOAP-Backend.git
 WORKDIR MOAP-Backend
 RUN npm install
 EXPOSE 9250
