@@ -9,14 +9,20 @@ MOAPシステムをスタンドアロンな状態で構築するためのオー�
 - MariaDB
     - [DockerHub](https://hub.docker.com/_/mariadb)
 - NEM Catapult Node
+## Usage & Problems
 
-## Problems
 `docker-compose.yml`の`db`serviceに与えている.envが効果をなしていないのか、ユーザーとDBが初回に作成されない問題がある.
 調査が必要であるが、それまでは初回に`docker-compose up`を行ったあとにdbへ接続しユーザーの作成とDBの作成をする必要がある.
 
 ```
+# 当リポジトリをclone
+git clone https://git.mosin.jp/git/mosin/MOAP-Docker.git
 cd MOAP-Docker
 
+# Backend, Front, Managementそれぞれをcloneしnpm installを完了させる
+./init.sh
+
+# 上記問題に対応
 # DBのコンテナを確認
 docker-compose ps
 
@@ -29,4 +35,10 @@ CREATE DATABASE moap;
 exit
 
 exit
+
+# 完了後改めてmigrateを行う
+./migrate.sh
+
+./logs.sh
+
 ```
