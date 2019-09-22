@@ -18,7 +18,7 @@ services:
       - db
     restart: always
     volumes:
-      - ./Backend:/MOAP-Backend
+      - ./MOAP-Backend:/MOAP-Backend
     working_dir: /MOAP-Backend
     ports:
       - '9250:9250'
