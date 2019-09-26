@@ -9,6 +9,10 @@ cd MOAP-Management && npm i && cd ..
 
 ./up.sh
 
+# 初回起動時に非同期にDBの初期化が行われるため、しばらく待ってから
+echo "コンテナを起動しました."
+echo "データベースの初期化を待機しています."
+sleep 10
 ./migrate.sh
 
 ./logs.sh
