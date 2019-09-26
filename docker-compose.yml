@@ -1,56 +1,57 @@
 version: '3.7'
 services:
-  db:
-    image: mariadb
-    ports:
-      - '3306:3306'  
-    volumes:
-      - ./moap-db:/var/lib/mysql
-    env_file:
-      - .env
-    restart: always
-  backend:
-    build: ./build/backend
-    command: npm start
-    env_file:
-      - .env
-    environment:
-      PORT: 9250
-    depends_on:
-      - db
-    restart: always
-    volumes:
-      - ./MOAP-Backend:/MOAP-Backend
-    working_dir: /MOAP-Backend
-    ports:
-      - '9250:9250'
-  front:
-    build: ./build/front
-    command: npm start
-    env_file:
-      - .env
-    environment:
-      PORT: 9251
-    depends_on:
-      - backend
-    restart: always
-    volumes:
-      - ./MOAP-Front:/MOAP-Front
-    working_dir: /MOAP-Front
-    ports:
-      - '9251:9251'
-  management:
-    build: ./build/management
-    command: npm start
-    env_file:
-      - .env
-    environment:
-      PORT: 9252
-    depends_on:
-      - backend
-    restart: always
-    volumes:
-      - ./MOAP-Management:/MOAP-Management
-    working_dir: /MOAP-Management
-    ports:
-      - '9252:9252'
+    db:
+        image: mariadb
+        ports:
+            - '3306:3306'
+        volumes:
+            - ./moap-db:/var/lib/mysql
+        env_file:
+            - .env
+        restart: always
+    backend:
+        build: ./build/backend
+        command: npm start
+        env_file:
+            - .env
+        environment:
+            PORT: 9250
+        depends_on:
+            - db
+        restart: always
+        volumes:
+            - ./MOAP-Backend:/MOAP-Backend
+        working_dir: /MOAP-Backend
+        ports:
+            - '9250:9250'
+    front:
+        build: ./build/front
+        command: npm start
+        env_file:
+            - .env
+        environment:
+            PORT: 9251
+        depends_on:
+            - backend
+        restart: always
+        volumes:
+            - ./MOAP-Front:/MOAP-Front
+        working_dir: /MOAP-Front
+        ports:
+            - '9251:9251'
+    management:
+        build: ./build/management
+        command: npm start
+        env_file:
+            - .env
+        environment:
+            PORT: 9252
+        depends_on:
+            - backend
+        restart: always
+        volumes:
+            - ./MOAP-Management:/MOAP-Management
+        working_dir: /MOAP-Management
+        ports:
+            - '9252:9252'
+
