@@ -51,4 +51,4 @@ $ curl http://localhost:9251/
 
 # http://localhost:9252/でマネジメント用アプリケーションにアクセスできます
 $ curl http://localhost:9252/
-'''
+```
