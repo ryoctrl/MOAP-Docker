@@ -1,1 +1,1 @@
-docker exec -t moap-docker_backend_1 ./node_modules/.bin/sequelize db:migrate
+docker-compose exec backend ./node_modules/.bin/sequelize db:migrate
