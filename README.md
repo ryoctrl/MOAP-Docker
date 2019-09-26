@@ -8,39 +8,19 @@ MOAPシステムをスタンドアロンな状態で構築するためのオー�
 - MOAP-Management
 - MariaDB
     - [DockerHub](https://hub.docker.com/_/mariadb)
-- NEM Catapult Node
 
-## Usage & Problems
+- NEM Catapult Node(未搭載)
 
-`docker-compose.yml`の`db`serviceに与えている.envが効果をなしていないのか、ユーザーとDBが初回に作成されない問題がある.
-調査が必要であるが、それまでは初回に`docker-compose up`を行ったあとにdbへ接続しユーザーの作成とDBの作成をする必要がある.
+## Usage
 
+### 初回起動時
 ```
 # 当リポジトリをclone
 $ git clone https://git.mosin.jp/git/mosin/MOAP-Docker.git
 $ cd MOAP-Docker
 
-# Backend, Front, Managementそれぞれをcloneしnpm installを完了させる
+# 初期化
 $ ./init.sh
-
-# 上記問題に対応
-# DBのコンテナを確認
-$ docker-compose ps
-
-$ docker exec -it moap-docker_db_1(コンテナ名) /bin/bash
-
-$ mysql
-
-$ GRANT ALL PRIVILEGES ON *.* TO moap@"192.168.%.%" IDENTIFIED BY 'moap' WITH GRANT OPTION;
-$ CREATE DATABASE moap;
-$ exit
-
-$ exit
-
-# 完了後改めてmigrateを行う
-# ./migrate.sh
-
-# ./logs.sh
 
 # ログが流れ続けるのでCtrl-Cで終了できます。
 # http://localhost:9250/でBackendにアクセスできます
@@ -52,3 +32,29 @@ $ curl http://localhost:9251/
 # http://localhost:9252/でマネジメント用アプリケーションにアクセスできます
 $ curl http://localhost:9252/
 ```
+
+### 終了
+
+```
+$ cd MOAP-Docker
+$ ./down.sh
+```
+
+### ２回目以降の起動時
+
+```
+$ cd MOAP-Docker
+$ ./up.sh
+``` 
+
+### DBマイグレーション
+
+```
+$ cd MOAP-Docker/MOAP-Backend
+# sequelize コマンドについて詳細はsequelizeのdocsを確認してください
+$ sequelize model:create --name test --attributes name:string
+
+$ cd ..
+$ ./migrate.sh
+```
+
