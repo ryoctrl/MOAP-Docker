@@ -3,8 +3,9 @@
 echo "MOAPシステムをダウンロードしています"
 
 git clone https://git.mosin.jp/git/mosin/MOAP-Backend.git
-git clone -b develop https://git.mosin.jp/git/mosin/MOAP-Front.git 
+git clone https://git.mosin.jp/git/mosin/MOAP-Front.git 
 git clone https://git.mosin.jp/git/mosin/MOAP-Management.git
+git clone https://github.com/tech-bureau/catapult-service-bootstrap.git catapult
 
 echo "MOAPシステムを初期化しています"
 cd MOAP-Backend && npm i && cd ..
