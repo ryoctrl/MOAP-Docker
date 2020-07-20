@@ -28,7 +28,7 @@ const proc = async () => {
   );
   config = config.replace(
     /MASTER_PRIV_KEY: '.*'/,
-    `MASTER_PRIV_KEY: '${storeAccount.private}'`,
+    `MASTER_PRIV_KEY: '${masterAccount.private}'`,
   );
 
   const { data } = await axios.get(GENERATION_HASH_URL);

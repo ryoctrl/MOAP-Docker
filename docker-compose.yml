@@ -11,7 +11,7 @@ services:
     restart: always
   backend:
     build: ./build/backend
-    command: pm2 start ecosystem.config.js
+    command: pm2-runtime start ecosystem.config.js
     env_file:
       - .env
     environment:
@@ -26,7 +26,7 @@ services:
       - '9250:9250'
   front:
     build: ./build/front
-    command: pm2-runtime ecosystem.config.js
+    command: npm start
     env_file:
       - .env
     environment:
