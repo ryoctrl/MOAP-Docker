@@ -1,9 +1,11 @@
 version: '3.7'
 services:
   install:
-    build: ./build/install
-    command: npm-run-all -p \"prefix:* -- install\",
-    restart: always
+    image: node:10.16-alpine
+    command: |
+        cd /MOAP-Backend && npm i \
+        cd /MOAP-Front && npm i \
+        cd /MOAP-Management && npm i
     volumes:
       - ./MOAP-Backend:/MOAP-Backend
       - ./MOAP-Front:/MOAP-Front
@@ -63,6 +65,6 @@ services:
     working_dir: /MOAP-Management
     ports:
       - '9252:9252'
-  nem_resource_initialize:
-    image: mikefarah/yq
-    command:
+  #nem_resource_initialize:
+  #image: mikefarah/yq
+  #command:

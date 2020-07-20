@@ -11,10 +11,18 @@ git clone https://git.mosin.jp/git/mosin/MOAP-Front.git
 git clone https://git.mosin.jp/git/mosin/MOAP-Management.git
 git clone https://github.com/tech-bureau/catapult-service-bootstrap.git catapult
 
-#echo "MOAPシステムを初期化しています"
-#cd MOAP-Backend && npm i && cd ..
-#cd MOAP-Front && npm i && cd ..
-#cd MOAP-Management && npm i && cd ..
+echo "NEM Catapultを初期化しています"
+$SCRIPT_DIR/catapult-up.sh
+
+ADDRESSES_PATH=$SCRIPT_DIR/../catapult/build/generated-addresses/addresses.yaml
+
+while [ ! -e $ADDRESSES_PATH ]
+do
+    sleep 0.5
+done
+
+echo "MOAPシステムを初期化しています"
+docker-compose -f docker-compose-init.yml up
 
 echo "MOAPシステムを起動しています"
 $SCRIPT_DIR/up.sh
