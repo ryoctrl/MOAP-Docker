@@ -28,10 +28,11 @@ services:
     set_nem_envs:
         image: node:14
         command: node set_nem_envs
+        working_dir: /init
         volumes:
             - ./tmp:/tmp
             - ./MOAP-Backend:/MOAP-Backend
-            - ./build/init/:/
+            - ./build/init/:/init
 
 
 
