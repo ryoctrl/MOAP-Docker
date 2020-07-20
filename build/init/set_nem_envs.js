@@ -8,33 +8,34 @@ const configPath = `${TARGET_DIR}/ecosystem.config.js`;
 
 const masterAccount = addresses.nemesis_addresses[0];
 const storeAccount = addresses.nemesis_addresses[1];
-const GENERATION_HASH_URL = 'http://localhost:3000/blocks/1';
+//const GENERATION_HASH_URL = 'http://localhost:3000/blocks/1';
+const GENERATION_HASH_URL = 'http://host.docker.internal:3000/blocks/1';
 
 const proc = async () => {
-  const config = await fs.readFile(configSamplePath);
+  let config = (await fs.readFile(configSamplePath)).toString();
 
-  config.replace(
+  config = config.replace(
     /STORE_ADDR: '.*'/,
-    `STORE_PUB_KEY: '${storeAccount.address}'`,
+    `STORE_ADDR: '${storeAccount.address}'`,
   );
-  config.replace(
+  config = config.replace(
     /STORE_PUB_KEY: '.*'/,
     `STORE_PUB_KEY: '${storeAccount.public}'`,
   );
-  config.replace(
+  config = config.replace(
     /STORE_PRIV_KEY: '.*'/,
     `STORE_PRIV_KEY: '${storeAccount.private}'`,
   );
-  config.replace(
+  config = config.replace(
     /MASTER_PRIV_KEY: '.*'/,
-    `STORE_PUB_KEY: '${storeAccount.private}'`,
+    `MASTER_PRIV_KEY: '${storeAccount.private}'`,
   );
 
   const { data } = await axios.get(GENERATION_HASH_URL);
   if (data?.meta?.generationHash) {
-    config.replace(
+    config = config.replace(
       /GENERATION_HASH: '.*'/,
-      `STORE_PUB_KEY: '${data.meta.generationHash}'`,
+      `GENERATION_HASH: '${data.meta.generationHash}'`,
     );
   } else {
     console.error('NEMブロックチェーンのGenerationHash取得に失敗しました。');

@@ -1,15 +1,5 @@
 version: '3.7'
 services:
-  install:
-    image: node:10.16-alpine
-    command: |
-        cd /MOAP-Backend && npm i \
-        cd /MOAP-Front && npm i \
-        cd /MOAP-Management && npm i
-    volumes:
-      - ./MOAP-Backend:/MOAP-Backend
-      - ./MOAP-Front:/MOAP-Front
-      - ./MOAP-Management:/MOAP-Management
   db:
     image: mariadb
     ports:
@@ -21,14 +11,13 @@ services:
     restart: always
   backend:
     build: ./build/backend
-    command: npm start
+    command: pm2 start ecosystem.config.js
     env_file:
       - .env
     environment:
       PORT: 9250
     depends_on:
       - db
-      - install
     restart: always
     volumes:
       - ./MOAP-Backend:/MOAP-Backend

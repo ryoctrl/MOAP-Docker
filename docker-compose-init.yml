@@ -1,38 +1,29 @@
 version: '3.7'
 services:
-    install_backend:
-        image: node:10.16
-        command: npm install
-        volumes:
-            - ./MOAP-Backend:/target
-        working_dir: /target
-    install_front:
-        image: node:10.16
-        command: npm install
-        volumes:
-            - ./MOAP-Front:/target
-        working_dir: /target
-    install_management:
-        image: node:10.16
-        command: npm install
-        volumes:
-            - ./MOAP-Management:/target
-        working_dir: /target
-    to_json_nem_addresses:
-        image: mikefarah/yq
-        command: yq r -j ./addresses.yaml > /tmp/addresses.json
-        working_dir: /addresses
-        volumes:
-            - ./catapult/build/generated-addresses:/addresses
-            - ./tmp:/tmp
-    set_nem_envs:
-        image: node:14
-        command: node set_nem_envs
-        working_dir: /init
-        volumes:
-            - ./tmp:/tmp
-            - ./MOAP-Backend:/MOAP-Backend
-            - ./build/init/:/init
-
-
-
+  install_backend:
+    image: node:10.16
+    command: npm install
+    volumes:
+      - ./MOAP-Backend:/target
+    working_dir: /target
+  install_front:
+    image: node:10.16
+    command: npm install
+    volumes:
+      - ./MOAP-Front:/target
+    working_dir: /target
+  install_management:
+    image: node:10.16
+    command: npm install
+    volumes:
+      - ./MOAP-Management:/target
+    working_dir: /target
+  set_nem_envs:
+    build: ./build/set_nem_envs
+    #image: node:14
+    command: node set_nem_envs
+    working_dir: /init
+    volumes:
+      - ./tmp:/tmp
+      - ./MOAP-Backend:/MOAP-Backend
+      - ./build/init/:/init
