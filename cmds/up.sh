@@ -1,12 +1,9 @@
 #!/bin/bash
 
-echo "MOAPを起動しています"
+SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE:-$0}"); pwd)
 
-docker-compose up -d
-
-echo "catapultを起動しています"
-
-cd catapult/cmds/bootstrap && docker-compose up -d
+$SCRIPT_DIR/catapult-up.sh
+$SCRIPT_DIR/moap-up.sh
 
 echo "MOAPとcatapultを起動しました"
 

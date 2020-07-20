@@ -1,12 +1,9 @@
 #!/bin/bash
 
-echo "MOAPをシャットダウンしています"
+SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE:-$0}"); pwd)
 
-docker-compose down
-
-echo "catapultをシャットダウンしています"
-
-cd catapult/cmds/bootstrap && docker-compose down
+$SCRIPT_DIR/moap-down.sh
+$SCRIPT_DIR/catapult-down.sh
 
 echo "MOAPとcatapultをシャットダウンしました"
 

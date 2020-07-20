@@ -1,9 +1,13 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE:-$0}"); pwd)
+
+cd $SCRIPT_DIR/../
+
 echo "MOAPシステムをダウンロードしています"
 
 git clone https://git.mosin.jp/git/mosin/MOAP-Backend.git
-git clone https://git.mosin.jp/git/mosin/MOAP-Front.git 
+git clone https://git.mosin.jp/git/mosin/MOAP-Front.git
 git clone https://git.mosin.jp/git/mosin/MOAP-Management.git
 git clone https://github.com/tech-bureau/catapult-service-bootstrap.git catapult
 
