@@ -45,5 +45,13 @@ $SCRIPT_DIR/migrate.sh
 
 echo "データベースを初期化しました."
 
-$SCRIPT_DIR/logs.sh
+echo "テストユーザを登録します."
+ID=1234567890
+$SCRIPT_DIR/register_user.sh $ID
+echo "学籍番号 $ID をテストユーザとして登録しました。"
 
+echo "http://localhost:9251/ からMOAP-Frontにアクセスできます。(初回起動時は数分待つ必要があります)"
+echo "http://localhost:9252/ からMOAP-Managementにアクセスできます。"
+echo "http://localhost:9250/ からMOAP-Backend(API)にアクセスできます。"
+echo "./cmds/logs.sh を実行することでMOAPの各アプリケーションが出力するログを確認できます。"
+echo "cd ./catapult/cmds/docker && docker-compose logs -f を実行することでNEMの各アプリケーションが出力するログを確認できます"
