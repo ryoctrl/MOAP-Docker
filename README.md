@@ -26,14 +26,17 @@ $ cd MOAP-Docker
 # 初期化
 $ ./cmds/init.sh
 
-# http://localhost:9250/でBackendにアクセスできます
-$ curl http://localhost:9250/ 
+# http://localhost:9250でMOAP-Backend(API)にアクセスできます
+# http://localhost:9251でMOAP-Front(ユーザー用アプリケーション)にアクセスできます
+# http://localhost:9252でMOAP-Management(マネジメント用アプリケーション)にアクセスできます
 
-# http://localhost:9251/でユーザー用アプリケーションにアクセスできます
-$ curl http://localhost:9251/
+# MOAP-FrontとMOAP-ManagementはDockerコンテナ内でDevelop起動されるため、起動直後は数分待つ必要があります。
 
-# http://localhost:9252/でマネジメント用アプリケーションにアクセスできます
-$ curl http://localhost:9252/
+# MOAPを起動後、MOAP-Managementにアクセスし、新規商品を追加します。
+open http://localhost:9252
+
+# 商品を追加後、MOAP-Frontにアクセスし、MOAPを使用します。
+open http://localhost:9251
 ```
 
 ### 終了
@@ -78,3 +81,6 @@ $ ./cmds/register_user.sh 1234567890
 $ cd /path/to/MOAP-Docker
 $ ./cmds/nem2-cli.sh -h
 ```
+
+## 構成
+
