@@ -9,20 +9,18 @@ MOAPシステムをスタンドアロンな状態で構築するためのオー�
 - MariaDB
     - [DockerHub](https://hub.docker.com/_/mariadb)
 
-- NEM Catapult Node(未搭載)
+- NEM Catapult Node
 
 ## Usage
 
 ### 初回起動時
 ```
-# 当リポジトリをclone
 $ git clone https://git.mosin.jp/git/mosin/MOAP-Docker.git
 $ cd MOAP-Docker
 
 # 初期化
-$ ./init.sh
+$ ./cmds/init.sh
 
-# ログが流れ続けるのでCtrl-Cで終了できます。
 # http://localhost:9250/でBackendにアクセスできます
 $ curl http://localhost:9250/ 
 
@@ -37,14 +35,14 @@ $ curl http://localhost:9252/
 
 ```
 $ cd MOAP-Docker
-$ ./down.sh
+$ ./cmds/down.sh
 ```
 
 ### ２回目以降の起動時
 
 ```
 $ cd MOAP-Docker
-$ ./up.sh
+$ ./cmds/up.sh
 ``` 
 
 ### DBマイグレーション
