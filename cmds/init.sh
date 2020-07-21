@@ -46,6 +46,7 @@ MOSAIC_ID=$($SCRIPT_DIR/nem2-cli.sh transaction mosaic --profile master --non-ex
 echo "MOSAICを発行しました. MOSAIC_ID: $MOSAIC_ID"
 
 echo "MOAPシステムを初期化しています"
+touch .env
 docker-compose -f docker-compose-init.yml up
 
 echo "MOSAIC=$MOSAIC_ID" >> .env
