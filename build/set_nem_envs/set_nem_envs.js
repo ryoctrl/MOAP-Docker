@@ -4,7 +4,11 @@ const yaml = require('yaml');
 
 const ENV_PATH = '/.env';
 const YML_PATH = '/addresses.yaml';
-const GENERATION_HASH_URL = 'http://host.docker.internal:3000/blocks/1';
+// To LatestCatapult(symbol)
+//const GENERATION_HASH_URL = 'http://host.docker.internal:3000/blocks/1';
+
+// To catapultv0.8.0.1
+const GENERATION_HASH_URL = 'http://host.docker.internal:3000/block/1';
 
 const readFile = (path) => fs.readFile(path).then((buf) => buf.toString());
 
