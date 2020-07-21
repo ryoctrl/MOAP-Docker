@@ -28,6 +28,8 @@ do
 done
 echo "NEM Catapultが起動しました"
 
+sleep 5
+
 echo "NEM2-CLIを初期化しています"
 
 docker build -t nem2-cli ./build/nem2-cli
