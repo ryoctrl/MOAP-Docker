@@ -2,4 +2,6 @@ moap-db/
 MOAP-*/
 catapult
 
+.env
+
 nem2rc.json
