@@ -57,6 +57,8 @@ services:
   queue:
     image: node:10.16
     command: npm start
+    env_file:
+      - .env
     environment:
       PORT: 9253
     restart: always
