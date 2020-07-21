@@ -10,8 +10,8 @@ services:
       - .env
     restart: always
   backend:
-    build: ./build/backend
-    command: pm2-runtime start ecosystem.config.js
+    image: node:10.16
+    command: npm start
     env_file:
       - .env
     environment:
@@ -25,7 +25,7 @@ services:
     ports:
       - '9250:9250'
   front:
-    build: ./build/front
+    image: node:10.16
     command: npm start
     env_file:
       - .env
@@ -40,7 +40,7 @@ services:
     ports:
       - '9251:9251'
   management:
-    build: ./build/management
+    image: node:10.16
     command: npm start
     env_file:
       - .env
@@ -54,6 +54,3 @@ services:
     working_dir: /MOAP-Management
     ports:
       - '9252:9252'
-  #nem_resource_initialize:
-  #image: mikefarah/yq
-  #command:

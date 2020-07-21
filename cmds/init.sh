@@ -21,9 +21,6 @@ do
     sleep 0.5
 done
 
-mkdir tmp
-docker run -v $(pwd)/catapult/build/generated-addresses:/a mikefarah/yq yq r -j /a/addresses.yaml > tmp/addresses.json
-
 echo "MOAPシステムを初期化しています"
 docker-compose -f docker-compose-init.yml up
 

@@ -1,3 +1,5 @@
 FROM node:14
 
-RUN npm i -g axios
+ENV NODE_PATH /usr/local/lib/node_modules
+RUN npm install --global --unsafe-perm axios
+RUN npm install --global --unsafe-perm yaml

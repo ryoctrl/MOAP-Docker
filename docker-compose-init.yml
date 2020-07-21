@@ -20,10 +20,9 @@ services:
     working_dir: /target
   set_nem_envs:
     build: ./build/set_nem_envs
-    #image: node:14
     command: node set_nem_envs
     working_dir: /init
     volumes:
-      - ./tmp:/tmp
-      - ./MOAP-Backend:/MOAP-Backend
-      - ./build/init/:/init
+      - ./.env:/.env
+      - ./catapult/build/generated-addresses/addresses.yaml:/addresses.yaml
+      - ./build/set_nem_envs/:/init
