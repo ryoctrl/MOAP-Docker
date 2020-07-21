@@ -24,5 +24,6 @@ services:
     working_dir: /init
     volumes:
       - ./.env:/.env
+      - ./.env.sample:/.env.sample
       - ./catapult/build/generated-addresses/addresses.yaml:/addresses.yaml
       - ./build/set_nem_envs/:/init

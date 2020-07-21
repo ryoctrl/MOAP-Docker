@@ -3,6 +3,7 @@ const axios = require('axios');
 const yaml = require('yaml');
 
 const ENV_PATH = '/.env';
+const ENV_BASE_PATH = '/.env.sample
 const YML_PATH = '/addresses.yaml';
 // To LatestCatapult(symbol)
 //const GENERATION_HASH_URL = 'http://host.docker.internal:3000/blocks/1';
@@ -18,7 +19,7 @@ const proc = async () => {
   const masterAccount = addresses.nemesis_addresses[0];
   const storeAccount = addresses.nemesis_addresses[1];
 
-  let config = await readFile(ENV_PATH);
+  let config = await readFile(ENV_BASE_PATH);
 
   config += `STORE_ADDR=${storeAccount.address}\n`;
   config += `STORE_PUB_KEY=${storeAccount.public}\n`;
