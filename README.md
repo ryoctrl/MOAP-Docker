@@ -1,11 +1,16 @@
 # MOAP-Docker
 ## Description
-MOAPシステムをスタンドアロンな状態で構築するためのオールインワンなリポジトリ
+NEM Catapult テストネットを含めたMOAPシステムをスタンドアロンな状態で構築するためのリポジトリです。
+初回起動時に`cmds/init.sh`を実行することで
+
 
 ## Plan
 - MOAP-Backend
+
 - MOAP-Front
+
 - MOAP-Management
+
 - MariaDB
     - [DockerHub](https://hub.docker.com/_/mariadb)
 
@@ -56,3 +61,20 @@ $ cd ..
 $ ./migrate.sh
 ```
 
+### テストユーザ追加
+`register_user.sh`の引数に学籍番号(10桁)を渡すことで登録できます。
+この時、MOAPシステムのMOAP-Backendが起動している必要があります。
+
+```
+$ cd /path/to/MOAP-Docker
+$ ./cmds/register_user.sh 1234567890
+```
+
+### nem操作
+`nem2-cli.sh`を使用することで、nem2-cliを利用することができます。
+詳細はhelpを確認してください。
+
+```
+$ cd /path/to/MOAP-Docker
+$ ./cmds/nem2-cli.sh -h
+```
