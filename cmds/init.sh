@@ -16,10 +16,6 @@ $SCRIPT_DIR/catapult-up.sh
 
 echo "{}" > nem2rc.json
 
-./cmds/
-
-
-
 ADDRESSES_PATH=$SCRIPT_DIR/../catapult/build/generated-addresses/addresses.yaml
 
 while [ ! -e $ADDRESSES_PATH ]
@@ -27,11 +23,13 @@ do
     sleep 0.5
 done
 
-MASTER_PRIV=cat $ADDRESSES_PATH | ./cmds/yq.sh r - 'nemesis_addresses[0].private'
+docker build -t nem2-cli ./build/nem2-cli
 
-./cmds/nem2-cli.sh profile create -p $MASTER_PRIV -n MIJIN_TEST -u http://host.docker.internal:3000 --profile master
+MASTER_PRIV=$(cat $ADDRESSES_PATH | ./cmds/yq.sh r - 'nemesis_addresses[0].private')
 
-echo "MOSAIC=$(./cmds/nem2-cli.sh transaction mosaic --profile master --non-expiring --divisibility 0 --restrictable --supply-mutable --transferable --amount 10000000 --max-fee 0 | grep mosaic | awk '{print $NF}') > .env
+$SCRIPT_DIR/nem2-cli.sh profile create -p $MASTER_PRIV -n MIJIN_TEST -u http://host.docker.internal:3000 --profile master
+
+echo "MOSAIC=$($SCRIPT_DIR/nem2-cli.sh transaction mosaic --profile master --non-expiring --divisibility 0 --restrictable --supply-mutable --transferable --amount 10000000 --max-fee 0 | grep mosaic | awk '{print $NF}')" >> .env
 
 echo "MOAPシステムを初期化しています"
 docker-compose -f docker-compose-init.yml up
