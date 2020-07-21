@@ -1,8 +1,7 @@
 # MOAP-Docker
 ## Description
 NEM Catapult テストネットを含めたMOAPシステムをスタンドアロンな状態で構築するためのリポジトリです。
-初回起動時に`cmds/init.sh`を実行することで
-
+初回起動時に`cmds/init.sh`を実行することでMOAP-Backend, MOAP-Front, MOAP-Management, Nem Catapult Bootstrapを起動し、MOSAIC作成やNEMアカウントのMOAPへの統合を行います。
 
 ## Plan
 - MOAP-Backend
