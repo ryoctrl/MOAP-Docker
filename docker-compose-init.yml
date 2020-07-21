@@ -18,6 +18,12 @@ services:
     volumes:
       - ./MOAP-Management:/target
     working_dir: /target
+  install_queue:
+    image: node:10.16
+    command: npm install
+    volumes:
+      - ./MOAP-Queue:/target
+    working_dir: /target
   set_nem_envs:
     build: ./build/set_nem_envs
     command: node set_nem_envs

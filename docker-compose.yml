@@ -54,3 +54,14 @@ services:
     working_dir: /MOAP-Management
     ports:
       - '9252:9252'
+  queue:
+    image: node:10.16
+    command: npm start
+    environment:
+      PORT: 9253
+    restart: always
+    volumes:
+      - ./MOAP-Queue:/MOAP-Queue
+    working_dir: /MOAP-Queue
+    ports:
+      - '9253:9253'

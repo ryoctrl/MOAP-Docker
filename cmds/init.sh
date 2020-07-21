@@ -9,6 +9,7 @@ echo "MOAPシステムをダウンロードしています"
 git clone https://git.mosin.jp/git/mosin/MOAP-Backend.git
 git clone https://git.mosin.jp/git/mosin/MOAP-Front.git
 git clone https://git.mosin.jp/git/mosin/MOAP-Management.git
+git clone https://git.mosin.jp/git/mosin/Queue-Backend.git MOAP-Queue
 git clone https://github.com/tech-bureau/catapult-service-bootstrap.git catapult -b 0.8.0.3
 
 echo "NEM Catapultを初期化しています"
