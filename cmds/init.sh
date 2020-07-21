@@ -25,6 +25,7 @@ done
 
 docker build -t nem2-cli ./build/nem2-cli
 
+sleep 5
 MASTER_PRIV=$(cat $ADDRESSES_PATH | ./cmds/yq.sh r - 'nemesis_addresses[0].private')
 
 $SCRIPT_DIR/nem2-cli.sh profile create -p $MASTER_PRIV -n MIJIN_TEST -u http://host.docker.internal:3000 --profile master
