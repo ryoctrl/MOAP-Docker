@@ -42,12 +42,13 @@ $SCRIPT_DIR/nem2-cli.sh profile create -p $MASTER_PRIV -n MIJIN_TEST -u http://h
 
 MOSAIC_ID=$($SCRIPT_DIR/nem2-cli.sh transaction mosaic --profile master --non-expiring --divisibility 0 --restrictable --supply-mutable --transferable --amount 10000000 --max-fee 0 | grep mosaic | awk '{print $NF}')
 
-echo "MOSAIC=$MOSAIC_ID" >> .env
 
 echo "MOSAICを発行しました. MOSAIC_ID: $MOSAIC_ID"
 
 echo "MOAPシステムを初期化しています"
 docker-compose -f docker-compose-init.yml up
+
+echo "MOSAIC=$MOSAIC_ID" >> .env
 
 echo "MOAPシステムを起動しています"
 $SCRIPT_DIR/up.sh
