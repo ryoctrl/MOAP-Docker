@@ -3,7 +3,7 @@ const axios = require('axios');
 const yaml = require('yaml');
 
 const ENV_PATH = '/.env';
-const ENV_BASE_PATH = '/.env.sample
+const ENV_BASE_PATH = '/.env.sample';
 const YML_PATH = '/addresses.yaml';
 // To LatestCatapult(symbol)
 //const GENERATION_HASH_URL = 'http://host.docker.internal:3000/blocks/1';
