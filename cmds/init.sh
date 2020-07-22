@@ -16,7 +16,7 @@ git clone https://github.com/tech-bureau/catapult-service-bootstrap.git catapult
 echo "NEM Catapultを初期化しています"
 $SCRIPT_DIR/catapult-up.sh
 
-echo "{}" > smbolrc.json
+echo "{}" > symbolrc.json
 
 ADDRESSES_PATH=$SCRIPT_DIR/../catapult/build/generated-addresses/addresses.yaml
 
