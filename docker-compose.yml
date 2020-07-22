@@ -71,5 +71,5 @@ services:
 networks:
   default:
     external:
-      name: docker_default
+      name: bootstrap_default
 
