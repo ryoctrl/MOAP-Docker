@@ -20,13 +20,13 @@ echo "{}" > nem2rc.json
 
 ADDRESSES_PATH=$SCRIPT_DIR/../catapult/build/generated-addresses/addresses.yaml
 
-curl -s -X GET http://localhost:3000
+curl -s -X GET http://localhost:3000/blocks/1 > /dev/null
 
 echo "NEM Catapultの起動を待機しています"
 while [ $? != 0 ]
 do
     sleep 0.5
-    curl -s -X GET http://localhost:3000
+    curl -s -X GET http://localhost:3000/blocks/1 > /dev/null
 done
 echo "NEM Catapultが起動しました"
 
