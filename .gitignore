@@ -5,3 +5,4 @@ catapult
 .env
 
 nem2rc.json
+symbol-cli.config.json
