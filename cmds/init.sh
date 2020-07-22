@@ -16,7 +16,7 @@ git clone https://github.com/tech-bureau/catapult-service-bootstrap.git catapult
 echo "NEM Catapultを初期化しています"
 $SCRIPT_DIR/catapult-up.sh
 
-echo "{}" > nem2rc.json
+echo "{}" > smbolrc.json
 
 ADDRESSES_PATH=$SCRIPT_DIR/../catapult/build/generated-addresses/addresses.yaml
 
@@ -38,8 +38,10 @@ docker build -t symbol-cli ./build/symbol-cli
 
 sleep 10
 MASTER_PRIV=$(cat $ADDRESSES_PATH | ./cmds/yq.sh r - 'nemesis_addresses[0].private')
+SYMBOL_PWD=11111111
+SYMBOL_HOST=http://host.docker.internal:3000
 
-$SCRIPT_DIR/nem2-cli.sh profile create -p $MASTER_PRIV -n MIJIN_TEST -u http://host.docker.internal:3000 --profile master
+$SCRIPT_DIR/symbol-cli profile import -p $SYMBOL_PWD -n TEST_NET -P $MASTER_PRIV -u $SYMBOL_HOST --profile master -d
 
 MOSAIC_ID=$($SCRIPT_DIR/nem2-cli.sh transaction mosaic --profile master --non-expiring --divisibility 0 --restrictable --supply-mutable --transferable --amount 10000000 --max-fee 0 | grep mosaic | awk '{print $NF}')
 
