@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  db:
+  moap_db:
     image: mariadb
     ports:
       - '3306:3306'
@@ -17,7 +17,7 @@ services:
     environment:
       PORT: 9250
     depends_on:
-      - db
+      - moap_db
     restart: always
     volumes:
       - ./MOAP-Backend:/MOAP-Backend
@@ -67,3 +67,9 @@ services:
     working_dir: /MOAP-Queue
     ports:
       - '9253:9253'
+
+networks:
+  default:
+    external:
+      name: docker_default
+
