@@ -43,7 +43,7 @@ SYMBOL_HOST=http://host.docker.internal:3000
 
 $SCRIPT_DIR/symbol-cli profile import -p $SYMBOL_PWD -n TEST_NET -P $MASTER_PRIV -u $SYMBOL_HOST --profile master -d
 
-MOSAIC_ID=$($SCRIPT_DIR/symbol-cli transaction mosaic --profile master -p $SYMBOL_PWD --non-expiring --divisibility 0 --restrictable --supply-mutable --transferable --amount 10000000 --max-fee 0 --announce -M normal | grep Mosaic | awk '{print $5}')
+MOSAIC_ID=$($SCRIPT_DIR/symbol-cli transaction mosaic --profile master -p $SYMBOL_PWD --non-expiring --divisibility 0 --restrictable --supply-mutable --transferable --amount 10000000 --max-fee 0 --announce -M normal | grep Mosaic | awk '{print $10}')
 
 
 echo "MOSAICを発行しました. MOSAIC_ID: $MOSAIC_ID"
