@@ -15,17 +15,13 @@ git clone https://github.com/tech-bureau/catapult-service-bootstrap.git catapult
 echo "NEM Catapultを初期化しています"
 $SCRIPT_DIR/catapult-up.sh
 
-echo "{}" > symbol-cli.config.json
-
-ADDRESSES_PATH=$SCRIPT_DIR/../catapult/build/generated-addresses/addresses.yaml
-
-curl -s -X GET http://localhost:3000/blocks/1 > /dev/null
+curl -s -X GET http://localhost:3000/block/1 > /dev/null
 
 echo "NEM Catapultの起動を待機しています"
 while [ $? != 0 ]
 do
     sleep 0.5
-    curl -s -X GET http://localhost:3000/blocks/1 > /dev/null
+    curl -s -X GET http://localhost:3000/block/1 > /dev/null
 done
 echo "NEM Catapultが起動しました"
 
@@ -33,18 +29,20 @@ sleep 5
 
 echo "NEM2-CLIを初期化しています"
 
-docker build -t symbol-cli ./build/symbol-cli
+docker built -t nem2-cli ./build/nem2-cli
 
 sleep 10
+ADDRESSES_PATH=$SCRIPT_DIR/../catapult/build/generated-addresses/addresses.yaml
 MASTER_PRIV=$(cat $ADDRESSES_PATH | ./cmds/yq.sh r - 'nemesis_addresses[0].private')
 SYMBOL_PWD=11111111
 SYMBOL_HOST=http://host.docker.internal:3000
 
-$SCRIPT_DIR/symbol-cli profile import -p $SYMBOL_PWD -n TEST_NET -P $MASTER_PRIV -u $SYMBOL_HOST --profile master -d
-
-MOSAIC_ID=$($SCRIPT_DIR/symbol-cli transaction mosaic --profile master -p $SYMBOL_PWD --non-expiring --divisibility 0 --restrictable --supply-mutable --transferable --amount 10000000 --max-fee 0 --announce -M normal | grep Mosaic | head -1 | awk '{print $10}')
-
-
+# nem2-cliの設定ファイルを初期化
+echo "{}" > nem2rc.json
+# nem2-cliにmasterアカウントのprofileを登録
+$SCRIPT_DIR/nem2-cli.sh profile create -p $MASTER_PRIV -n MIJIN_TEST -u http://host.docker.internal:3000 --profile master
+# masterアカウントprofileを用いてMOSAIC発行
+MOSAIC_ID=$($SCRIPT_DIR/nem2-cli.sh transaction mosaic --profile master --non-expiring --divisibility 0 --restrictable --supply-mutable --transferable --amount 10000000 --max-fee 0 | grep mosaic | awk '{print $NF}')
 echo "MOSAICを発行しました. MOSAIC_ID: $MOSAIC_ID"
 
 echo "MOAPシステムを初期化しています"
