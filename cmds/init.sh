@@ -29,9 +29,8 @@ sleep 5
 
 echo "NEM2-CLIを初期化しています"
 
-docker built -t nem2-cli ./build/nem2-cli
+docker build -t nem2-cli ./build/nem2-cli
 
-sleep 10
 ADDRESSES_PATH=$SCRIPT_DIR/../catapult/build/generated-addresses/addresses.yaml
 MASTER_PRIV=$(cat $ADDRESSES_PATH | ./cmds/yq.sh r - 'nemesis_addresses[0].private')
 SYMBOL_PWD=11111111
