@@ -1,44 +1,65 @@
 # MOAP-Docker
-## Description
+## 概要
 NEM Catapult テストネットを含めたMOAPシステムをスタンドアロンな状態で構築するためのリポジトリです。
-初回起動時に`cmds/init.sh`を実行することでMOAP-Backend, MOAP-Front, MOAP-Management, Nem Catapult Bootstrapを起動し、MOSAIC作成やNEMアカウントのMOAPへの統合を行います。
 
-## Plan
-- MOAP-Backend
+## 構成
 
-- MOAP-Front
+以下のアプリケーションが含まれます。
 
-- MOAP-Management
+|アプリケーション|説明|
+|--|--|
+|MOAP-Backend|MOAPのAPIを提供するアプリケーションです|
+|MOAP-Front|MOAPのユーザ向けフロントエンドアプリケーションです|
+|MOAP-Management|MOAPの店舗向けフロントエンドアプリケーションです|
+|MariaDB|MOAP-Backendのストレージとなるデータベースです|
+|NEM Catapult Bootstrap|NEM Catapultテストノードを構成するコンテナ群を提供します|
+|MOAP-Queue|MOAPの利用データ計測機能を提供します|
 
-- MariaDB
-    - [DockerHub](https://hub.docker.com/_/mariadb)
+## 要求環境
 
-- NEM Catapult Node
+以下のアプリケーション・コマンドがインストールされていること。
+- docker(Docker Engine: 19.03.8)
+- docker-compose(1.25.5)
 
-## Usage
+|ポート番号|説明|
+|:--:|--|
+|3000|NEM Catapult APIを提供します|
+|9250|MOAP APIを提供します|
+|9251|MOAP-Front アプリケーションを提供します|
+|9252|MOAP-Management アプリケーションを提供します|
+|9253|MOAP-Queue APIを提供します|
 
-### 初回起動時
+
+## 使用方法
+
+### 初期設定(初回起動)
+
+
+以下のコマンドを実行し、MOAP-Dockerのダウンロードと初期化を行います。
+
 ```
 $ git clone https://git.mosin.jp/git/mosin/MOAP-Docker.git
 $ cd MOAP-Docker
-
-# 初期化
 $ ./cmds/init.sh
+``` 
 
-# http://localhost:9250でMOAP-Backend(API)にアクセスできます
-# http://localhost:9251でMOAP-Front(ユーザー用アプリケーション)にアクセスできます
-# http://localhost:9252でMOAP-Management(マネジメント用アプリケーション)にアクセスできます
+初期化が完了した時点で構成に含まれる各アプリケーションの起動と、MOAPへのNEMの統合(MOAP内の通貨となるMOSAICの発行や、マスタNEMアカウント、店舗用NEMアカウントの発行とMOAP-Backendへの設定)が完了しています。
 
-# MOAP-FrontとMOAP-ManagementはDockerコンテナ内でDevelop起動されるため、起動直後は数分待つ必要があります。
+起動後、最初にMOAP-Managementより商品の追加を行います。
+`http://localhost:9252`でMOAP-Management(マネジメント用アプリケーション)にアクセスできます
 
-# MOAPを起動後、MOAP-Managementにアクセスし、新規商品を追加します。
-open http://localhost:9252
+その後、MOAP-Frontより予め登録しているダミー学籍番号(`1234567890`)を用いてログインします。
+`http://localhost:9250`でMOAP-Backend(API)にアクセスできます
 
-# 商品を追加後、MOAP-Frontにアクセスし、MOAPを使用します。
-open http://localhost:9251
-```
+**MOAP-FrontとMOAP-ManagementはDockerコンテナ内でDevelop起動されるため、起動直後は数分待つ必要があります。**
+
+その他、以下のアプリケーションを適宜利用できます。
+`http://localhost:9251`でMOAP-Front(ユーザー用アプリケーション)にアクセスできます
+`http://localhost:9253`でMOAP-Queue(計測API)にアクセスできます
 
 ### 終了
+
+MOAPアプリケーションとNEM Catapultを終了します。
 
 ```
 $ cd MOAP-Docker
@@ -47,6 +68,8 @@ $ ./cmds/down.sh
 
 ### ２回目以降の起動時
 
+MOAPアプリケーションとNEM Catapultを起動します。
+
 ```
 $ cd MOAP-Docker
 $ ./cmds/up.sh
@@ -54,11 +77,15 @@ $ ./cmds/up.sh
 
 ### DBマイグレーション
 
+MOAP-BackendとMOAP-Queueのmigrationを実行します。
+
 ```
+# 必要に応じてmigrationファイルを作成します。
 $ cd MOAP-Docker/MOAP-Backend
 # sequelize コマンドについて詳細はsequelizeのdocsを確認してください
 $ sequelize model:create --name test --attributes name:string
 
+# migrationを実行します。
 $ cd ..
 $ ./migrate.sh
 ```
@@ -80,6 +107,4 @@ $ ./cmds/register_user.sh 1234567890
 $ cd /path/to/MOAP-Docker
 $ ./cmds/nem2-cli.sh -h
 ```
-
-## 構成
 
