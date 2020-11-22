@@ -6,7 +6,7 @@ cd $SCRIPT_DIR/../
 
 echo "MOAPシステムをダウンロードしています"
 
-git clone https://git.mosin.jp/git/mosin/MOAP-Backend.git
+git clone https://git.mosin.jp/git/mosin/MOAP-Backend.git -b extract_payment_service
 git clone https://git.mosin.jp/git/mosin/MOAP-Front.git
 git clone https://git.mosin.jp/git/mosin/MOAP-Management.git
 git clone https://git.mosin.jp/git/mosin/Queue-Backend.git MOAP-Queue
