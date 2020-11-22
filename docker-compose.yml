@@ -11,7 +11,7 @@ services:
     restart: always
   backend:
     image: node:10.16
-    command: npm start
+    command: npm run start:dev
     env_file:
       - .env
     environment:
